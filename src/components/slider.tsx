@@ -26,7 +26,9 @@ class Slider extends React.Component<sliderProps, sliderState> {
     // return the React Node here: 
     render() {
         return (
-            <input className="fader" type="range" onChange={(e) => this.props.handleChange(e)} defaultValue={(this.props.sliderValue)} min="0" max="1000"></input>
+            <div className="sliderDiv">
+                <input className="fader" type="range" onChange={(e) => this.props.handleChange(e)} defaultValue={(this.props.sliderValue)} min="0" max="1000"></input>
+            </div>
         )
     }
 }

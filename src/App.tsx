@@ -1,20 +1,31 @@
 import React, { useState, useCallback, useEffect, useLayoutEffect } from 'react';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 import './App.css';
-import Board from './board';
-
-// const socket = new WebSocket("localhost");
-const valueArray = Array(16);
+import Welcome from './components/welcome';
+import Board from './components/board';
 
 function App() {
+  let [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="App">
       <header className="App-header">
         <div className="container">
-          <Board /> 
+          {
+            (loggedIn)
+            ? <Board /> 
+
+            : <div><Welcome /><button onClick={(e) => {
+                setLoggedIn(!loggedIn)
+            }}>log in</button></div>
+          }
+
         </div>
       </header>
     </div>
   );
 }
+
+
 
 export default App;
