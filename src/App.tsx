@@ -5,17 +5,19 @@ import Welcome from './components/welcome';
 import Board from './components/board';
 
 function App() {
-  let [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [resolution, setResolution] = useState(10000);
 
   return (
     <div className="App">
       <header className="App-header">
+        <Welcome />
         <div className="container">
           {
             (loggedIn)
-            ? <Board /> 
+            ? <Board />
 
-            : <div><Welcome /><button onClick={(e) => {
+            : <div><button onClick={(e) => {
                 setLoggedIn(!loggedIn)
             }}>log in</button></div>
           }

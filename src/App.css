@@ -80,7 +80,7 @@
 
 .sliderDiv > input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
-  margin-top: (30/2 - 15/2);
+  margin-top: (30/2 - 15/2)px;
   height: 15px;
   background-color: darkcyan;
 }

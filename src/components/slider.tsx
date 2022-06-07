@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 // need to specify what types the props passed to a class has, and pass them as the template for React.Component.
 interface sliderProps {
     sliderValue: number;
+    sliderId: string;
     key:string;
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
   }
@@ -27,7 +28,7 @@ class Slider extends React.Component<sliderProps, sliderState> {
     render() {
         return (
             <div className="sliderDiv">
-                <input className="fader" type="range" onChange={(e) => this.props.handleChange(e)} defaultValue={(this.props.sliderValue)} min="0" max="1000"></input>
+                <input className="fader" id={this.props.sliderId} type="range" onChange={(e) => this.props.handleChange(e)} defaultValue={(this.props.sliderValue)} min="0" max="1000"></input>
             </div>
         )
     }

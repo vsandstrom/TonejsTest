@@ -29,7 +29,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     }
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.value);
+        console.log(event.target.id + ': ' + event.target.value);
         //this.state.ws.send(JSON.stringify((event.target.id), event.currentTarget.value);
     }
 
@@ -43,7 +43,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     renderSlider = (i: number) => {
         return (
-            <Slider key={(i).toString()} sliderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
+            <Slider key={(i).toString()} sliderId={"fader" + (i).toString()} sliderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
         )
 
     }
