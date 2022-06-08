@@ -12,22 +12,22 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Welcome />
-        <div className="container">
+          <div className="options">
+            <button onClick={(e) => {
+                setLoggedIn(!loggedIn);
+                e.currentTarget.innerHTML = (loggedIn) ? "log in" : "log out";
+              }  
+            }>log in</button>
+          </div>
+        <div>
           {
-            (loggedIn)
-            ? <Board />
-
-            : <div><button onClick={(e) => {
-                setLoggedIn(!loggedIn)
-            }}>log in</button></div>
+            loggedIn && 
+             <Board handleChange={setLoggedIn} loggedIn={loggedIn}/>
           }
-
         </div>
       </header>
     </div>
   );
 }
-
-
 
 export default App;

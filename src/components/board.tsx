@@ -1,18 +1,16 @@
 import React from 'react';
-import Slider from './slider';
-
-//import Slider from './sliderFunc';
+import Fader from './fader';
 
 interface BoardProps {
     // socket: WebSocket;
+    handleChange: React.Dispatch<React.SetStateAction<boolean>>;
+    loggedIn: boolean;
 }
 
 interface BoardState {
-    sliderArray: Array<any>;
+    faderArray: Array<any>;
     valueArray: Array<number>; 
     // ws: WebSocket;
-
-
 }
 
 class Board extends React.Component<BoardProps, BoardState> {
@@ -20,8 +18,8 @@ class Board extends React.Component<BoardProps, BoardState> {
         super(props);
         this.state = {
             // WEBSOCKET ARRAY maybe?   
-            sliderArray: [...Array(16)].map((obj, i) => {
-                return (this.renderSlider(i))
+            faderArray: [...Array(16)].map((obj, i) => {
+                return (this.renderFader(i))
             }),
             valueArray: Array(16),
             // ws: props.socket,
@@ -35,25 +33,27 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     createBoard = () => {
         this.setState({
-            sliderArray: this.state.sliderArray.map((obj, i) => {
-                return (this.renderSlider(i))
+            faderArray: this.state.faderArray.map((obj, i) => {
+                return (this.renderFader(i))
             })
         })
     }
 
-    renderSlider = (i: number) => {
+    renderFader = (i: number) => {
         return (
-            <Slider key={(i).toString()} sliderId={"fader" + (i).toString()} sliderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
+            <Fader key={(i).toString()} faderId={"fader" + (i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
         )
 
     }
 
     render() {
-        return this.state.sliderArray
-            // ([...Array(16)]).map((obj, i) => {
-            // <Slider key={(i).toString()} sliderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
-            // })
-        
+        return (
+            <div>
+                <div className="container">
+                    {this.state.faderArray}
+                </div>
+            </div>
+        )
     }
 }
 
