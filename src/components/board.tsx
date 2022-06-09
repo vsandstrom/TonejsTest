@@ -5,11 +5,11 @@ interface BoardProps {
     // socket: WebSocket;
     handleChange: React.Dispatch<React.SetStateAction<boolean>>;
     loggedIn: boolean;
+    valueArray: Array<number>; 
 }
 
 interface BoardState {
     faderArray: Array<any>;
-    valueArray: Array<number>; 
     // ws: WebSocket;
 }
 
@@ -21,7 +21,7 @@ class Board extends React.Component<BoardProps, BoardState> {
             faderArray: [...Array(16)].map((obj, i) => {
                 return (this.renderFader(i))
             }),
-            valueArray: Array(16),
+            // valueArray: Array(16),
             // ws: props.socket,
         }
     }
@@ -41,7 +41,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     renderFader = (i: number) => {
         return (
-            <Fader key={(i).toString()} faderId={"fader" + (i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
+            <Fader key={(i).toString()} faderId={'fader' + (i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
         )
 
     }
