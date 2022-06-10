@@ -1,11 +1,11 @@
 import React from 'react';
 import Fader from './fader';
+import * as Tone from 'tone';
 
 interface BoardProps {
     // socket: WebSocket;
     handleChange: React.Dispatch<React.SetStateAction<boolean>>;
     loggedIn: boolean;
-    valueArray: Array<number>; 
 }
 
 interface BoardState {
