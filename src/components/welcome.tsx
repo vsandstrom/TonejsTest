@@ -15,7 +15,7 @@ class Welcome extends React.Component<WelcomeProps, WelcomeState> {
     render() {
         return (
             <div className="welcomeContainer">
-                <h1>OSC Web Interface</h1>
+                <h1>Synth Demo</h1>
             </div>
         )
     }

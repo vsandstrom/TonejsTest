@@ -2,6 +2,13 @@ import React from 'react';
 import Fader from './fader';
 import * as Tone from 'tone';
 
+const vol = new Tone.Volume(0).toDestination()
+const reverb = new Tone.Reverb(16).chain(vol);
+const plucky0 = new Tone.AMSynth().chain(reverb);
+const plucky1 = new Tone.AMSynth().chain(reverb);
+const plucky2 = new Tone.AMSynth().chain(reverb);
+const plucky3 = new Tone.AMSynth().chain(reverb);
+
 interface BoardProps {
     // socket: WebSocket;
     handleChange: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +17,7 @@ interface BoardProps {
 
 interface BoardState {
     faderArray: Array<any>;
+    fund: number;
     // ws: WebSocket;
 }
 
@@ -21,8 +29,60 @@ class Board extends React.Component<BoardProps, BoardState> {
             faderArray: [...Array(16)].map((obj, i) => {
                 return (this.renderFader(i))
             }),
+            fund: 300,
             // valueArray: Array(16),
             // ws: props.socket,
+        }
+    }
+
+    onRender(){
+        if (this.props.loggedIn == true) {
+
+            const now = Tone.now();
+            plucky0.chain(reverb);
+            plucky1.chain(reverb);
+            plucky2.chain(reverb);
+            plucky3.chain(reverb);
+            
+            let three = 3;
+
+            plucky0.harmonicity.value = 3/2*2;
+            plucky1.harmonicity.value = 5/3;
+            plucky2.harmonicity.value = 3/2*2;
+            plucky3.harmonicity.value = 5/3;
+
+            plucky0.triggerAttackRelease(0.25 * this.state.fund, 2, now); 
+            plucky1.triggerAttackRelease(3/5 * this.state.fund, 2, now + 0.12); 
+            plucky2.triggerAttackRelease(2/6 * this.state.fund, 2, now + 0.2); 
+            plucky3.triggerAttackRelease(9/8 * this.state.fund, 2, now + 0.24);
+
+
+            plucky0.triggerAttackRelease(1.5/2 * this.state.fund, 2, now + three ); 
+            plucky1.triggerAttackRelease(2.5/2 * this.state.fund, 2, now + 0.2 + three); 
+            plucky2.triggerAttackRelease(2.5/3 * this.state.fund, 2, now + 0.12 + three); 
+            plucky3.triggerAttackRelease(15/8 * this.state.fund, 2, now + 0.24 + three);
+
+            three+=3;
+
+            plucky0.triggerAttackRelease(1.5/2 * this.state.fund * 5/4, 2, now + three); 
+            plucky1.triggerAttackRelease(2.5/2 * this.state.fund* 5/4, 2, now + 0.2 + three); 
+            plucky2.triggerAttackRelease(2.5/3 * this.state.fund* 5/4, 2, now + 0.12 + three); 
+            plucky3.triggerAttackRelease(15/8 * this.state.fund* 5/4, 2, now + 0.24 + three);
+            three+=3;
+
+            plucky0.triggerAttackRelease(1.5/2 * this.state.fund * 3/4, 2, now + three); 
+            plucky1.triggerAttackRelease(2.5/2 * this.state.fund * 3/4, 2, now + 0.2 + three); 
+            plucky2.triggerAttackRelease(2.5/3 * this.state.fund * 3/4, 2, now + 0.12 + three); 
+            plucky3.triggerAttackRelease(15/8 * this.state.fund * 3/4, 2, now + 0.24 + three);
+            
+            } else {
+            console.log("here");
+            plucky0.disconnect();
+            plucky1.disconnect();
+            plucky2.disconnect();
+            plucky3.disconnect();
+
+            Tone.start();
         }
     }
 
@@ -50,7 +110,8 @@ class Board extends React.Component<BoardProps, BoardState> {
         return (
             <div>
                 <div className="container">
-                    {this.state.faderArray}
+                    <>{this.state.faderArray}</>
+                    <>{this.onRender()}</>
                 </div>
             </div>
         )
