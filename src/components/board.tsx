@@ -1,13 +1,20 @@
 import React from 'react';
 import Fader from './fader';
 import * as Tone from 'tone';
+import { AMSynth } from 'tone';
 
 const vol = new Tone.Volume(0).toDestination()
 const reverb = new Tone.Reverb(16).chain(vol);
+const plucky: Tone.AMSynth[] = new Array(4);
+
 const plucky0 = new Tone.AMSynth().chain(reverb);
 const plucky1 = new Tone.AMSynth().chain(reverb);
 const plucky2 = new Tone.AMSynth().chain(reverb);
 const plucky3 = new Tone.AMSynth().chain(reverb);
+plucky.push(plucky0);
+plucky.push(plucky1);
+plucky.push(plucky2);
+plucky.push(plucky3);
 
 interface BoardProps {
     // socket: WebSocket;
@@ -18,6 +25,7 @@ interface BoardProps {
 interface BoardState {
     faderArray: Array<any>;
     fund: number;
+    valueArray: Array<any>;
     // ws: WebSocket;
 }
 
@@ -30,22 +38,29 @@ class Board extends React.Component<BoardProps, BoardState> {
                 return (this.renderFader(i))
             }),
             fund: 300,
-            // valueArray: Array(16),
+            valueArray: Array(16),
             // ws: props.socket,
         }
     }
 
-    onRender(){
-        if (this.props.loggedIn == true) {
+    onRender = ()  => {
+        if (this.props.loggedIn === true) {
 
             const now = Tone.now();
+            // plucky.forEach(synth => synth.chain(reverb));
             plucky0.chain(reverb);
             plucky1.chain(reverb);
             plucky2.chain(reverb);
             plucky3.chain(reverb);
             
             let three = 3;
-
+            
+            const harm = [3/2*2, 5/3, 3/2*2, 5/3];
+            const arp = [0, 0.12, 0.2, 0.24];
+            // plucky.set({harmonicity: 3/2*2});
+            // for (let i = 0; plucky.length; i++) {
+            //     plucky[i].harmonicity.value = harm[i];
+            // };
             plucky0.harmonicity.value = 3/2*2;
             plucky1.harmonicity.value = 5/3;
             plucky2.harmonicity.value = 3/2*2;
@@ -86,8 +101,14 @@ class Board extends React.Component<BoardProps, BoardState> {
         }
     }
 
+
+
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target.id + ': ' + event.target.value);
+        const faderID: number = parseInt(event.target.id);
+        console.log("fader" + event.target.id + ': ' + event.target.value);
+        this.state.valueArray[faderID] = event.target.value;
+
+
         //this.state.ws.send(JSON.stringify((event.target.id), event.currentTarget.value);
     }
 
@@ -101,7 +122,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     renderFader = (i: number) => {
         return (
-            <Fader key={(i).toString()} faderId={'fader' + (i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
+            <Fader key={(i).toString()} faderId={(i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
         )
 
     }

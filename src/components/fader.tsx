@@ -1,5 +1,4 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react';
 
 // need to specify what types the props passed to a class has, and pass them as the template for React.Component.
 interface faderProps {

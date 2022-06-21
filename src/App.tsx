@@ -28,10 +28,12 @@ function App() {
           </div>
         <div>
           <div className='container'>
+            <>
             {
               loggedIn && 
-              <Board handleChange={setLoggedIn} loggedIn={loggedIn} />
+              <Board handleChange={setLoggedIn} loggedIn={loggedIn}  />
             }
+            </>
           </div>
         </div>
       </header>
