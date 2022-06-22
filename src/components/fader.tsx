@@ -28,11 +28,17 @@ class Fader extends React.Component<faderProps, faderState> {
     render() {
         return (
             <div className="faderDiv">
+                <label className="label" htmlFor={this.props.faderId}>
+                    {this.props.faderId}: {((1 / 1000) * this.state.value).toFixed(3)} 
+                </label>
                 <input 
                     className="fader" 
                     id={this.props.faderId} 
                     type="range" 
-                    onChange={async (e) => await this.props.handleChange(e)} 
+                    onChange={(e) => {
+                        this.props.handleChange(e);
+                        this.setState({value: parseInt(e.currentTarget.value)})
+                    }} 
                     defaultValue={(this.props.faderValue)} 
                     min="0" 
                     max="1000"

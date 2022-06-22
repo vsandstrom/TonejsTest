@@ -51,6 +51,12 @@
   width: 80px;
 }
 
+.label {
+  font-size: 18px;
+  width: 800px;
+  height: 800px;
+}
+
 .faderDiv > input {
   cursor: pointer;
   -webkit-appearance: none;;

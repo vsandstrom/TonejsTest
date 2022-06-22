@@ -33,6 +33,7 @@ function App() {
               <Board handleChange={setLoggedIn} loggedIn={loggedIn}  />
             }
             </>
+
           </div>
         </div>
       </header>
