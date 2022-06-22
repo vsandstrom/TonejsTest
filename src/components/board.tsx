@@ -104,9 +104,19 @@ class Board extends React.Component<BoardProps, BoardState> {
 
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const faderID: number = parseInt(event.target.id);
-        console.log("fader" + event.target.id + ': ' + event.target.value);
-        this.state.valueArray[faderID] = event.target.value;
+        let val: number = 1 + (-1000 / parseInt(event.currentTarget.value));
+
+        console.log(val);
+
+
+        plucky0.set({volume: val});
+        plucky1.set({volume: val});
+        plucky2.set({volume: val});
+        plucky3.set({volume: val});
+
+        // const faderID: number = parseInt(event.target.id);
+        // console.log("fader" + event.target.id + ': ' + event.target.value);
+        // this.state.valueArray[faderID] = event.target.value;
 
 
         //this.state.ws.send(JSON.stringify((event.target.id), event.currentTarget.value);

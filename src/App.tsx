@@ -4,7 +4,6 @@ import * as Tone from 'tone';
 import './App.css';
 import Welcome from './components/welcome';
 import Board from './components/board';
-import { closeSync } from 'fs';
 
 
 function App() {

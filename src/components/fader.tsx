@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import * as Tone from 'tone';
 
 // need to specify what types the props passed to a class has, and pass them as the template for React.Component.
 interface faderProps {
@@ -27,7 +28,16 @@ class Fader extends React.Component<faderProps, faderState> {
     render() {
         return (
             <div className="faderDiv">
-                <input className="fader" id={this.props.faderId} type="range" onChange={(e) => this.props.handleChange(e)} defaultValue={(this.props.faderValue)} min="0" max="1000"></input>
+                <input 
+                    className="fader" 
+                    id={this.props.faderId} 
+                    type="range" 
+                    onChange={async (e) => await this.props.handleChange(e)} 
+                    defaultValue={(this.props.faderValue)} 
+                    min="0" 
+                    max="1000"
+                >
+                </input>
             </div>
         )
     }
