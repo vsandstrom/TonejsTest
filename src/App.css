@@ -53,8 +53,10 @@
 
 .label {
   font-size: 18px;
-  width: 800px;
-  height: 800px;
+  width: 10px;
+  height: 10px;
+  /* writing-mode: vertical-lr; */
+  text-orientation:upright;
 }
 
 .faderDiv > input {
@@ -66,7 +68,7 @@
 
 .faderDiv > input[type="range"]::-webkit-slider-runnable-track {
   background: #b4166d;
-  height: 30px;
+  height: 30px; 
   border-radius: 14px;
 }
 

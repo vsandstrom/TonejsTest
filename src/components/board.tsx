@@ -18,7 +18,7 @@ interface BoardProps {
 }
 
 interface BoardState {
-    faderArray: Array<any>;
+    faderArray: Array<JSX.Element>;
     fund: number;
     valueArray: Array<any>;
     // ws: WebSocket;
@@ -29,7 +29,7 @@ class Board extends React.Component<BoardProps, BoardState> {
         super(props);
         this.state = {
             // WEBSOCKET ARRAY maybe?   
-            faderArray: [...Array(16)].map((obj, i) => {
+            faderArray: [...Array(8)].map((obj, i) => {
                 return (this.renderFader(i))
             }),
             fund: 300,
@@ -59,6 +59,11 @@ class Board extends React.Component<BoardProps, BoardState> {
         plucky1.harmonicity.value = 5/3;
         plucky2.harmonicity.value = 3/2*2;
         plucky3.harmonicity.value = 5/3;
+
+        plucky0.volume.value = -60;
+        plucky1.volume.value = -60;
+        plucky2.volume.value = -60;
+        plucky3.volume.value = -60;
 
         if (this.props.loggedIn === true) {
 
@@ -171,7 +176,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     renderFader = (i: number) => {
         return (
-            <Fader key={(i).toString()} faderId={(i).toString()} faderValue={(1000 / 15) * i} handleChange={this.handleChange}/>
+            <Fader key={(i).toString()} faderId={(i).toString()} faderValue={(1000 / 7) * i} handleChange={this.handleChange}/>
         )
 
     }
