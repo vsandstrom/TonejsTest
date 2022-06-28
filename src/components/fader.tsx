@@ -4,7 +4,7 @@ import React from 'react';
 interface faderProps {
     faderValue: number;
     faderId: string;
-    key:string;
+    key: string;
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
   }
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import Fader from './fader';
 import * as Tone from 'tone';
-import { AMSynth } from 'tone';
 
 const vol = new Tone.Volume(0).toDestination()
 const reverb = new Tone.Reverb(16).chain(vol);
@@ -29,7 +28,7 @@ class Board extends React.Component<BoardProps, BoardState> {
         super(props);
         this.state = {
             // WEBSOCKET ARRAY maybe?   
-            faderArray: [...Array(8)].map((obj, i) => {
+            faderArray: [...Array(10)].map((obj, i) => {
                 return (this.renderFader(i))
             }),
             fund: 300,
@@ -47,10 +46,10 @@ class Board extends React.Component<BoardProps, BoardState> {
         plucky2.chain(reverb);
         plucky3.chain(reverb);
         
-        let three = 3;
+        // let three = 3;
         
-        const harm = [3/2*2, 5/3, 3/2*2, 5/3];
-        const arp = [0, 0.12, 0.2, 0.24];
+        // const harm = [3/2*2, 5/3, 3/2*2, 5/3];
+        // const arp = [0, 0.12, 0.2, 0.24];
         // plucky.set({harmonicity: 3/2*2});
         // for (let i = 0; plucky.length; i++) {
         //     plucky[i].harmonicity.value = harm[i];
@@ -67,9 +66,7 @@ class Board extends React.Component<BoardProps, BoardState> {
 
         if (this.props.loggedIn === true) {
 
-            const loop = new Tone.Loop((time) => {
-                console.log(time);
-            
+            new Tone.Loop((time) => {
                 plucky0.triggerAttackRelease(0.25 * this.state.fund, 2, time); 
                 plucky1.triggerAttackRelease(3/5 * this.state.fund, 2, (time + 0.12)); 
                 plucky2.triggerAttackRelease(2/6 * this.state.fund, 2, (time + 0.2)); 
@@ -95,7 +92,6 @@ class Board extends React.Component<BoardProps, BoardState> {
             Tone.Transport.start(now);
             
         } else {
-
             Tone.Transport.stop();
             // console.log("here");
             // plucky0.disconnect();
@@ -109,55 +105,62 @@ class Board extends React.Component<BoardProps, BoardState> {
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const faderID: number = parseInt(event.target.id);
-        const eVal = parseInt(event.currentTarget.value);
+        const eVal: number = parseInt(event.currentTarget.value);
+        let val: number = 0;
+
         if (faderID === 0) {
-            let val: number = (-32 * (-1 * (eVal/1000))) - 32;
-
-            console.log(val);
-
+            // Part 1: Vol
+            val = (-32 * (-1 * (eVal/1000))) - 32;
             plucky0.set({volume: val});
+
         } else if (faderID === 1) {
-            let val: number = (-32 * (-1 * (eVal/1000))) - 32;
-
-            console.log(val);
-
+            // Part 2: Vol
+            val = (-32 * (-1 * (eVal/1000))) - 32;
             plucky1.set({volume: val});
+
         } else if (faderID === 2) {
-            let val: number = (-32 * (-1 * (eVal/1000))) - 32;
-
-            console.log(val);
-
+            // Part 3: Vol
+            val = (-32 * (-1 * (eVal/1000))) - 32;
             plucky2.set({volume: val});
+
         } else if (faderID === 3) {
-            let val: number = (-32 * (-1 * (eVal/1000))) - 32;
-
-            console.log(val);
-
+            // Part 4: Vol
+            val = (-32 * (-1 * (eVal/1000))) - 32;
             plucky3.set({volume: val});
-        } else if (faderID === 4) {
-            let val = 1 * (1000 / eVal);
 
+        } else if (faderID === 4) {
+            // Part 1: Harmonicity
+            val = 1 * (1000 / eVal);
             plucky0.set({harmonicity: val});
 
         } else if (faderID === 5) {
-            let val = 1 * (1000 / eVal);
-
+            // Part 2: Harmonicity
+            val = 1 * (1000 / eVal);
             plucky1.set({harmonicity: val});
-
         
         } else if (faderID === 6) {
-            let val = 1 * (1000 / eVal);
-
+            // Part 3: Harmonicity
+            val = 1 * (1000 / eVal);
             plucky2.set({harmonicity: val});
 
         } else if (faderID === 7) {
-            let val = 1 * (1000 / eVal);
-
+            // Part 4: Harmonicity
+            val = 1 * (1000 / eVal);
             plucky3.set({harmonicity: val});
+
+        } else if (faderID === 8) {
+            // Reverb: Dry/Wet
+            val = (1 / 1000) * eVal;
+            reverb.set({wet: val});
+
+        } else if ( faderID === 9) {
+            // MasterVolume
+            val = (-64 * (-1 * (eVal/1000))) - 64;
+            vol.set({volume: val});
 
         }
 
-
+        
         // const faderID: number = parseInt(event.target.id);
         // console.log("fader" + event.target.id + ': ' + event.target.value);
         // this.state.valueArray[faderID] = event.target.value;
