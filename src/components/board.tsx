@@ -64,9 +64,15 @@ class Board extends React.Component<BoardProps, BoardState> {
         plucky2.volume.value = -60;
         plucky3.volume.value = -60;
 
+        vol.volume.value = 0;
+        reverb.wet.value = 0;
+
         if (this.props.loggedIn === true) {
+            let timeKeeper = Tone.now();
 
             new Tone.Loop((time) => {
+                time = time + timeKeeper;
+                console.log(time);
                 plucky0.triggerAttackRelease(0.25 * this.state.fund, 2, time); 
                 plucky1.triggerAttackRelease(3/5 * this.state.fund, 2, (time + 0.12)); 
                 plucky2.triggerAttackRelease(2/6 * this.state.fund, 2, (time + 0.2)); 
@@ -86,8 +92,9 @@ class Board extends React.Component<BoardProps, BoardState> {
                 plucky1.triggerAttackRelease(2.5/2 * this.state.fund * 3/4, 2, (time + 9.2)); 
                 plucky2.triggerAttackRelease(2.5/3 * this.state.fund * 3/4, 2, (time + 9.12)); 
                 plucky3.triggerAttackRelease(15/8 * this.state.fund * 3/4, 2, (time + 9.24));
+                // time = timeKeeper;
 
-            }, 6).start(0);
+            }, 12).start(0);
 
             Tone.Transport.start(now);
             
